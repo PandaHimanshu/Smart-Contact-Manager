@@ -11,6 +11,7 @@ import com.scm.SmartControlManager.Entities.User;
 import com.scm.SmartControlManager.Entities.UserForm;
 import com.scm.SmartControlManager.services.UserService;
 
+
 @Controller
 public class PageController {
 
@@ -56,14 +57,22 @@ public class PageController {
     public String processRegister(@ModelAttribute UserForm userForm){
         System.out.println(userForm);
 
-        User user = User.builder()
-        .name(userForm.getName())
-        .email(userForm.getEmail())
-        .password(userForm.getPassword())
-        .about(userForm.getAbout())
-        .phoneNumber(userForm.getPhoneNumber())
-        .profilePic("hello")
-        .build();
+        // User user = User.builder()
+        // .name(userForm.getName())
+        // .email(userForm.getEmail())
+        // .password(userForm.getPassword())
+        // .about(userForm.getAbout())
+        // .phoneNumber(userForm.getPhoneNumber())
+        // .profilePic("hello")
+        // .build();
+
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("profile pic");
         User savedUser = userService.saveUser(user);
 
         System.out.println("user saved:");
