@@ -7,10 +7,12 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.SmartControlManager.Entities.User;
 import com.scm.SmartControlManager.Repository.UserRepository;
+import com.scm.SmartControlManager.helpers.AppConstants;
 import com.scm.SmartControlManager.helpers.ResourceNotFoundException;
 import com.scm.SmartControlManager.services.UserService;
 
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -28,9 +33,17 @@ public class UserServiceImpl implements UserService{
 
         String userId=UUID.randomUUID().toString();
         user.setUserId(userId);
-        //password encode
+        // password encode
         // user.setPassword(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         
+
+        //set the role
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+
+        logger.info(user.getProvider().toString());
+
+
         return userRepository.save(user);
     }
 
