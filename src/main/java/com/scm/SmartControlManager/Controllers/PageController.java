@@ -17,7 +17,6 @@ import com.scm.SmartControlManager.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -49,15 +48,15 @@ public class PageController {
     public String service(){
         return "services";
     }
-    @RequestMapping("/contacts")
+    @GetMapping("/contacts")
     public String contact(){
         return "contacts";
     }
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login(){
-        return new String("login");
+        return "login";
     }
-    @RequestMapping("/signup")
+    @GetMapping("/signup")
     public String signup(Model model){
 
         UserForm userForm = new UserForm();
