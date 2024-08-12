@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,6 +37,9 @@ public class SecurityConfig {
 
     @Autowired
     private SecurityCustomUserDetailService securityCustomUserDetailService;
+
+    @Autowired
+    private OAuthenticationSuccessHandler oAuthenticationSuccessHandler;
     
 
     // configuration of authentication provider
@@ -75,7 +79,14 @@ public class SecurityConfig {
             .logout(logout -> {
                 logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true");
-        });
+        })
+
+        //oauth2 with google
+            .oauth2Login(oauth->{
+                oauth.loginPage("/login")
+                    .successHandler(oAuthenticationSuccessHandler);
+            });
+
 
 
         return httpSecurity.build();
