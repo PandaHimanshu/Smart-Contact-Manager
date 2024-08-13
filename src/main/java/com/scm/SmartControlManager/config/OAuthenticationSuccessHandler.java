@@ -68,7 +68,7 @@ public class OAuthenticationSuccessHandler implements AuthenticationSuccessHandl
                 else if(authorizedClientRegistrationId.equalsIgnoreCase("github")){
                     String email = oauthUser.getAttribute("email") != null? 
                     oauthUser.getAttribute("email").toString():
-                    oauthUser.getAttribute("login").toString()+"@github.com";
+                    oauthUser.getAttribute("login").toString()+"@gmail.com";
                     String picture = oauthUser.getAttribute("avatar_url").toString();
                     String name =oauthUser.getAttribute("login").toString();
                     String providerUserId =oauthUser.getName();

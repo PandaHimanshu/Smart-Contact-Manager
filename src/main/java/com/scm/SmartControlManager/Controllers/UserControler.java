@@ -14,8 +14,6 @@ import com.scm.SmartControlManager.services.UserService;
 @RequestMapping("/user")
 public class UserControler {
 
-    @Autowired
-    private UserService userService;
 
 
     //user dashboard
