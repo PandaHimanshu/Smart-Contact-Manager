@@ -29,6 +29,7 @@ public class OAuthenticationSuccessHandler implements AuthenticationSuccessHandl
 
     @Autowired
     private UserRepository userRepository;
+    @SuppressWarnings("null")
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
