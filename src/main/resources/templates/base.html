@@ -31,6 +31,7 @@
     <!--  user is logged in : navbar -->
     <div th:if="${loggedInUser}">
       <div data-th-replace="~{user/user_navbar::userNavbar}"></div>
+      <script src="/js/script.js"></script>
     </div>
 
     <!-- user is not logged : navbar -->
