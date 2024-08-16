@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.SmartControlManager.Entities.User;
-import com.scm.SmartControlManager.Entities.UserForm;
+import com.scm.SmartControlManager.forms.UserForm;
 import com.scm.SmartControlManager.helpers.Message;
 import com.scm.SmartControlManager.helpers.MessageType;
 import com.scm.SmartControlManager.services.UserService;
