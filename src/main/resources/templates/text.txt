@@ -1,3 +1,3 @@
- npx tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css --watch
+npx tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css --watch
 client id :512830910366-5dqfcf0snjjdu3j30cdmqntqhr08udqi.apps.googleusercontent.com
 client secret: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

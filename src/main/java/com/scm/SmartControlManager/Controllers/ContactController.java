@@ -1,11 +1,15 @@
 package com.scm.SmartControlManager.Controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.*;
 
 import com.scm.SmartControlManager.Entities.Contact;
 import com.scm.SmartControlManager.Entities.User;
@@ -14,6 +18,7 @@ import com.scm.SmartControlManager.helpers.Helper;
 import com.scm.SmartControlManager.helpers.Message;
 import com.scm.SmartControlManager.helpers.MessageType;
 import com.scm.SmartControlManager.services.ContactService;
+import com.scm.SmartControlManager.services.ImageService;
 import com.scm.SmartControlManager.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,7 +35,12 @@ public class ContactController {
     private ContactService contactService;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private UserService userService;
+
+    Logger logger = LoggerFactory.getLogger(ContactController.class);
     
     //add contact page : handler
     @RequestMapping("/add")
@@ -49,6 +59,8 @@ public class ContactController {
 
         //validate the form 
         if (bindingResult.hasErrors()) {
+
+            bindingResult.getAllErrors().forEach(error->logger.info("error is",error.toString()));
             httpSession.setAttribute("message", Message.builder()
             .content("please correct the following errors")
             .type(MessageType.red)
@@ -59,6 +71,14 @@ public class ContactController {
         String username = Helper.getEmailFromLoggedUser(authentication);
         User user =userService.getUserByEmail(username);
 
+        //image process
+        // logger.info("file information: {}",contactForm.getContactImage().getOriginalFilename());
+
+        //image upload
+
+        String fileName = UUID.randomUUID().toString();
+        String fileUrl = imageService.uploadImage(contactForm.getContactImage(),fileName);
+
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
         contact.setEmail(contactForm.getEmail());
@@ -68,10 +88,12 @@ public class ContactController {
         contact.setDescription(contactForm.getDescription());
         contact.setWebsiteLink(contactForm.getWebsiteLink());
         contact.setLinkedInLink(contactForm.getLinkedInLink());
-
+        contact.setPicture(fileUrl);
+        contact.setCloudinaryImagePublicId(fileName);
         contact.setUser(user);
 
         contactService.save(contact);
+
         httpSession.setAttribute("message", Message.builder()
             .content("you have successfully added a new contact")
             .type(MessageType.green)
