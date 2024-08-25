@@ -55,6 +55,8 @@ public class ContactController {
     @RequestMapping(value = "/add",method=RequestMethod.POST)
     public String saveContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult bindingResult,Authentication authentication,HttpSession httpSession){
 
+
+
         // System.out.println(contactForm);
 
         //validate the form 
@@ -99,5 +101,17 @@ public class ContactController {
             .type(MessageType.green)
             .build());
         return "redirect:/user/contacts/add";
+    }
+
+    //view contact
+    @RequestMapping
+    public String viewContacts(Authentication authentication,Model model){
+
+        String userName =Helper.getEmailFromLoggedUser(authentication);
+        User user = userService.getUserByEmail(userName);
+        List<Contact> contacts = contactService.getByUser(user);
+
+        model.addAttribute("contacts", contacts);
+        return "user/contacts";
     }
 }
