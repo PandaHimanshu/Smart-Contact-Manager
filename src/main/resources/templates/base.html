@@ -8,7 +8,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SCM</title>
+    <title data-th-replace="${title}">SCM</title>
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
@@ -31,7 +31,6 @@
     <!--  user is logged in : navbar -->
     <div th:if="${loggedInUser}">
       <div data-th-replace="~{user/user_navbar::userNavbar}"></div>
-      <script src="/js/script.js"></script>
     </div>
 
     <!-- user is not logged : navbar -->
@@ -49,6 +48,7 @@
     <!-- <footer class="p-4">Footer: Learn Code With Durgesh</footer> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="/js/script.js"></script>
+    <script data-th-src="@{'/js/script.js'}"></script>
+    <th:block data-th-replace="${script}"></th:block>
   </body>
 </html>
