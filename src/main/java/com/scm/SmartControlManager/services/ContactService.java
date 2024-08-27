@@ -3,8 +3,6 @@ package com.scm.SmartControlManager.services;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.scm.SmartControlManager.Entities.Contact;
 import com.scm.SmartControlManager.Entities.User;
 
@@ -19,7 +17,9 @@ public interface ContactService {
 
     void delete(String id);
 
-    List<Contact> search (String name,String email,String phoneNumber);
+    Page<Contact> searchByName (String nameKeyword,int size,int page,String sortBy,String order,User user);
+    Page<Contact> searchByEmail (String emailKeyword,int size,int page,String sortBy,String order,User user);
+    Page<Contact> searchByPhoneNumber (String phoneNumberKeyword,int size,int page,String sortBy,String order,User user);
 
     List<Contact> getByUserId(String userId);
 
