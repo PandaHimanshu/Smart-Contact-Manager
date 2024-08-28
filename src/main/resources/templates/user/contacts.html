@@ -20,6 +20,7 @@
         <div class="">
           <h1 class="text-5xl text-center">All Your Contacts</h1>
           <p class="text-center">List of all contacts...</p>
+          <div data-th-replace="~{message::messagebox}"></div>
 
           <div class="contacts_container p-5">
             <div
@@ -173,7 +174,7 @@
                         </a> -->
 
                         <!-- delete contact -->
-                        <button>
+                        <button th:onclick="deleteContact([[${c.id}]])">
                           <i class="fa-solid w-6 h-6 fa-trash"></i>
                         </button>
                         <!-- update contact -->

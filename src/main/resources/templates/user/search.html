@@ -211,9 +211,11 @@
             </h1>
           </div>
         </div>
+        <div data-th-replace="~{ user/contact_modal :: contact}"></div>
       </div>
     </div>
 
+    <script data-th-src="@{'/js/contact.js'}"></script>
     <script>
       console.log("this is profile page");
     </script>

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,4 +164,19 @@ public class ContactController {
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
         return "user/search";
     }
+
+    //Delete contact
+    @RequestMapping("/delete/{contactId}")
+    public String deleteContact(@PathVariable("contactId") String contactId,HttpSession session) {
+
+        contactService.delete(contactId);
+        logger.info("contactId {} deleted",contactId);
+
+        session.setAttribute("message", Message.builder()
+        .content("contact deleted sucessfully")
+        .type(MessageType.green)
+        .build());
+        return "redirect:/user/contacts";
+    }
+    
 }

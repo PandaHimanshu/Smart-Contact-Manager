@@ -75,9 +75,16 @@ async function deleteContact(id) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonText: "Delete",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
       const url = `${baseURL}/user/contacts/delete/` + id;
       window.location.replace(url);
     }
