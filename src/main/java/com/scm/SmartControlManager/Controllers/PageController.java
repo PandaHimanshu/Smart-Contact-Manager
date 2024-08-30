@@ -48,7 +48,7 @@ public class PageController {
     public String service(){
         return "services";
     }
-    @GetMapping("/contacts")
+    @GetMapping("/contact")
     public String contact(){
         return "contacts";
     }
